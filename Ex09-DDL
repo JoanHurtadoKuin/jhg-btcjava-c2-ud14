@@ -1,0 +1,27 @@
+create database cientificosBD;
+
+use cientificosBD;
+
+create table Cientificos(
+DNI varchar(8) primary key,
+NomApels varchar(255)
+);
+
+
+create table Proyecto(
+Id char(4) primary key,
+Nombre varchar(255),
+Horas int
+);
+
+create table Asignado_A(
+Id int auto_increment primary key,
+Cientifico varchar(8),
+Proyecto char(4),
+Key(Cientifico),
+foreign key(Cientifico) references Cientificos(DNI)
+on delete restrict on update cascade,
+Key(Proyecto),
+foreign key(Proyecto) references Proyecto(Id)
+on delete restrict on update cascade
+);
