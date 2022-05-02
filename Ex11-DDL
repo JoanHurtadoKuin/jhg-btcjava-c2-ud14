@@ -1,0 +1,41 @@
+create database investigadoresBD;
+
+use investigadoresBD;
+
+create table Facultad(
+Id int auto_increment primary key,
+Nombre varchar(100)
+);
+
+
+create table Investigadores(
+DNI varchar(8) primary key,
+NomApels varchar(255),
+FacultadId int,
+key(FacultadId),
+foreign key(FacultadId) references Facultad(Id)
+on delete restrict on update cascade
+);
+
+create table Equipos(
+NumSerie char(4) primary key,
+Nombre varchar(255),
+FacultadId int,
+key(FacultadId),
+foreign key(FacultadId) references Facultad(Id)
+on delete restrict on update cascade
+);
+
+create table Reserva(
+Id int auto_increment primary key,
+Comienzo datetime,
+Fin datetime,
+DNI varchar(8),
+NumSerie char(4),
+Key(DNI),
+foreign key(DNI) references Investigadores(DNI)
+on delete restrict on update cascade,
+Key(NumSerie),
+foreign key(NumSerie) references Equipos(NumSerie)
+on delete restrict on update cascade
+);
