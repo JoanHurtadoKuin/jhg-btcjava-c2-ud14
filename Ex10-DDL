@@ -1,0 +1,37 @@
+create database grandesAlmacenesBD;
+
+use grandesAlmacenesBD;
+
+create table Cajeros(
+Id int auto_increment primary key,
+NomApels varchar(255)
+);
+
+
+create table Productos(
+Id int auto_increment primary key,
+Nombre varchar(100),
+Precio int
+);
+
+drop table if exists Maquinas_Registradoras;
+create table Maquinas_Registradoras(
+Id int auto_increment primary key,
+Piso int
+);
+
+create table Venta(
+Id int auto_increment primary key,
+Cajero int,
+Maquina int,
+Producto int,
+Key(Cajero),
+foreign key(Cajero) references Cajeros(Id)
+on delete restrict on update cascade,
+Key(Maquina),
+foreign key(Maquina) references Maquinas_Registradoras(Id)
+on delete restrict on update cascade,
+Key(Producto),
+foreign key(Producto) references Productos(Id)
+on delete restrict on update cascade
+);
