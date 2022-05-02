@@ -1,0 +1,20 @@
+create database almacenesBD;
+
+use almacenesBD;
+
+create table Almacenes(
+Id int auto_increment primary key,
+Lugar varchar(100),
+Capacidad int
+);
+
+drop table if exists Cajas;
+create table Cajas(
+NumReferencia char(5) primary key,
+Contenido varchar(100),
+Valor int,
+IdAlmacen int,
+Key(IdAlmacen),
+foreign key(IdAlmacen) references Almacenes(Id)
+on delete restrict on update cascade
+);
