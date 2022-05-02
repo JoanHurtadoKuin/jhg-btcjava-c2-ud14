@@ -1,0 +1,21 @@
+create database empleadosBD;
+
+use empleadosBD;
+
+create table Departamentos(
+Id int auto_increment primary key,
+Nombre varchar(100),
+Presupuesto int
+);
+
+drop table if exists Empleados;
+create table Empleados(
+DNI varchar(8) primary key,
+Nombre varchar(100),
+Apellidos varchar(255),
+Departamento int,
+Key(Departamento),
+foreign key(Departamento) references Departamentos(Id)
+on delete restrict on update cascade
+);
+
