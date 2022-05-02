@@ -1,0 +1,88 @@
+create database bibliotecaBD;
+
+use bibliotecaBD;
+
+create table Libro(
+ClaveLibro int auto_increment primary key,
+Titulo varchar(255),
+Idioma varchar(255),
+Formato varchar(255),
+ClaveEditorial int
+);
+
+create table Tema(
+ClaveTema int primary key,
+Nombre varchar(255)
+);
+
+create table Autor(
+ClaveAutor int primary key,
+Nombre varchar(255)
+);
+
+create table Editorial(
+ClaveEditorial int primary key,
+Nombre varchar(255),
+Direccion varchar(255),
+Telefono int
+);
+
+create table Ejemplar(
+ClaveEjemplar int primary key,
+ClaveLibro int,
+NumeroOrden int,
+Edicion varchar(255),
+Ubicacion varchar(255),
+Categoria varchar(255),
+Key(ClaveLibro),
+foreign key(ClaveLibro) references Libro(ClaveLibro)
+on delete cascade on update cascade
+);
+
+create table Socio(
+ClaveSocio int auto_increment primary key,
+Nombre varchar(255),
+Direccion varchar(255),
+Telefono int,
+Categoria varchar(255)
+);
+
+create table Prestamo(
+ClavePrestamo int auto_increment primary key,
+ClaveSocio int,
+ClaveEjemplar int,
+NumeroOrden int,
+FechaPrestamo DATE,
+FecaDevolucion DATE,
+Notas varchar(255),
+Key(ClaveSocio),
+foreign key(ClaveSocio) references Socio(ClaveSocio)
+on delete cascade on update cascade,
+Key(ClaveEjemplar),
+foreign key(ClaveEjemplar) references Ejemplar(ClaveEjemplar)
+on delete cascade on update cascade
+);
+
+create table TrataSobre(
+ID int auto_increment primary key,
+ClaveLibro int,
+ClaveTema int,
+Key(ClaveLibro),
+foreign key(ClaveLibro) references Libro(ClaveLibro)
+on delete cascade on update cascade,
+Key(ClaveTema),
+foreign key(ClaveTema) references Tema(ClaveTema)
+on delete cascade on update cascade
+);
+
+create table EscritoPor(
+ID int auto_increment primary key,
+ClaveLibro int,
+ClaveAutor int,
+Key(ClaveLibro),
+foreign key(ClaveLibro) references Libro(ClaveLibro)
+on delete cascade on update cascade,
+Key(ClaveAutor),
+foreign key(ClaveAutor) references Autor(ClaveAutor)
+on delete cascade on update cascade
+);
