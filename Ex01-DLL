@@ -1,0 +1,27 @@
+create database estacionBD;
+
+use estacionBD;
+
+CREATE TABLE Estacion(
+Id int auto_increment primary KEY,
+latitud int,
+longitud int,
+altitud int 
+);
+
+drop table if exists Muestra;
+CREATE TABLE Muestra(
+Id int auto_increment primary key,
+Fecha DATE,
+TemperaturaMinima int,
+TemperaturaMaxima int,
+Precipitaciones int,
+HumedadMinima int,
+HumedadMaxima int,
+VelocidadVientoMinima int,
+VelocidadVientaMaxima int,
+idEstacion int,
+KEY(idEstacion),
+foreign key(idEstacion) references Estacion(Id)
+ON DELETE restrict ON UPDATE cascade
+);
