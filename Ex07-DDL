@@ -1,0 +1,22 @@
+create database directoresBD;
+
+use directoresBD;
+
+create table Despachos(
+Id int primary key,
+Capacidad int
+);
+
+
+create table Directores(
+DNI varchar(8) primary key,
+NomApels varchar(255),
+IdDespacho int,
+DNIjefe varchar(8),
+Key(IdDespacho),
+foreign key(IdDespacho) references Despachos(Id)
+on delete restrict on update cascade,
+Key(DNIjefe),
+foreign key(DNIjefe) references Directores(DNI)
+on delete restrict on update cascade
+);
