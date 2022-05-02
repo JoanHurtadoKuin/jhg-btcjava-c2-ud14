@@ -1,0 +1,56 @@
+create database claseBD;
+
+use claseBD;
+
+create table Profesores(
+DNI varchar (8) primary key,
+Nombre varchar (255) unique,
+Apellido1 varchar (255),
+Apellido2 varchar (255),
+Direccion varchar (255),
+Titulo varchar (255),
+gana int
+);
+
+create table Cursos(
+CodCurso int primary key,
+NombreCurso varchar (60) unique,
+MaximoAlumnos int,
+ProfesorAsignado varchar(8),
+FechaInicio datetime,
+FechaFin datetime,
+NumHoras int not null,
+KEY(ProfesorAsignado),
+foreign key (ProfesorAsignado) references Profesores(DNI)
+on delete restrict on update cascade
+);
+
+drop table if exists Alumnos;
+create table Alumnos(
+DNI varchar (8) primary key,
+Nombre varchar (255),
+Apellido1 varchar (255),
+Apellido2 varchar (255),
+Direccion varchar (255),
+Sexo char (1),
+FechaNacimiento datetime,
+CodigoCurso int,
+key(CodigoCurso),
+foreign key (CodigoCurso) references Cursos (CodCurso) 
+);
+
+create table cursar(
+idCurso int primary key,
+CodigoCurso int,
+DNIAlumno varchar (8),
+DNIProfesor varchar (8),
+Key(CodigoCurso),
+foreign key (CodigoCurso) references Cursos (CodCurso)
+on delete restrict on update cascade,
+Key(DNIAlumno),
+foreign key (DNIAlumno) references Alumnos (DNI)
+on delete restrict on update cascade,
+Key(DNIProfesor),
+foreign key (DNIProfesor) references Profesores (DNI)
+on delete restrict on update cascade
+);
